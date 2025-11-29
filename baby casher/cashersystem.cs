@@ -1,5 +1,4 @@
-﻿
-string[] products = { "chebsi", "pepsi", "cocacola", "oruo","fridayicecream" } ;
+﻿string[] products = { "chebsi", "pepsi", "cocacola", "oruo","fridayicecream" } ;
 decimal[] prices = { 10, 15, 17, 7.5m, 10 };
 int[] stock= { 200, 3000, 1450, 233, 12 };
 bool flow = true;
@@ -15,7 +14,6 @@ while (flow)
         Console.WriteLine("please enter a valid num");
          test = Console.ReadLine();
     }
-
 
     switch (choose)
     {
@@ -44,9 +42,9 @@ while (flow)
                 stock[shelf-1]= newstock;  
                 Console.WriteLine("enter the price");
                 string newprices = Console.ReadLine();
-                int newprice = 0;
+                decimal newprice = 0;
 
-                while (!int.TryParse(newprices, out newprice))
+                while (!decimal.TryParse(newprices, out newprice))
                 {
                     Console.WriteLine("enter a valid num");
                     newprices = Console.ReadLine();
@@ -74,7 +72,7 @@ while (flow)
                 }
                 break;
             }
-            case 3:
+        case 3:
             {
                 for (int i = 0; i < 5; i++)
                 {
@@ -91,99 +89,43 @@ while (flow)
                 Console.WriteLine("What the num of product are you need?");
                 string need = Console.ReadLine();
                 int f = 0;
-                while (!int.TryParse(need, out f) || f < 1 || f > 4)
+                while (!int.TryParse(need, out f) || f < 1 || f >= 4)
                 {
                     Console.WriteLine("enter a valid num ");
                     need = Console.ReadLine();
                 }
-                switch (f)
+
+
+                int index = f - 1;
+                if (stock[index] > 0)
                 {
-                    case 1:
-                        {
-                            if (stock[0] > 0)
-                            {
-                                Console.WriteLine($"{products[0]} it's great product ");
-                                Console.WriteLine("enter the amont");
-                                string amonts = Console.ReadLine();
-                                int amont = 0;
-                                while (!int.TryParse(amonts, out amont) || amont > stock[0])
-                                {
-                                    Console.WriteLine("enter a valid num ");
-                                    amonts = Console.ReadLine();
+                    Console.WriteLine($"{products[index]} it's great product ");
+                    Console.WriteLine($"Price: {prices[index]} EGP");
+                    string amonts = Console.ReadLine();
+                    int amont = 0;
+                    while (!int.TryParse(amonts, out amont) || amont > stock[index]|| amont <= 0)
+                    {
+                        Console.WriteLine($"Invalid amount! Available stock: {stock[index]}. Try again:");
+                        amonts = Console.ReadLine();
 
-                                }
-                                stock[0] = stock[0] - amont;
-                                Console.WriteLine("great we will prepare that ");
-                            }
-                            else Console.WriteLine("out of stock");
-                            break;
-                        }
-                            case 2:
-                                {
-                                    if (stock[1] > 0)
-                                    {
-                                        Console.WriteLine($"{products[1]} it's great product ");
-                                        Console.WriteLine("enter the amont");
-                                        string amonts = Console.ReadLine();
-                                        int amont = 0;
-                                        while (!int.TryParse(amonts, out amont) || amont > stock[1])
-                                        {
-                                            Console.WriteLine("enter a valid num ");
-                                    amonts = Console.ReadLine();
-
-                                }
-                                stock[1] = stock[1] - amont;
-                                        Console.WriteLine("great we will prepare that ");
-                                    }
-                                    else Console.WriteLine("out of stock");
-                                    break;
-                                }
-                    case 3:
-                        {
-                            if (stock[2] > 0)
-                            {
-                                Console.WriteLine($"{products[2]} it's great product ");
-                                Console.WriteLine("enter the amont");
-                                string amonts = Console.ReadLine();
-                                int amont = 0;
-                                while (!int.TryParse(amonts, out amont) || amont > stock[2])
-                                {
-                                    Console.WriteLine("enter a valid num ");
-                                     amonts = Console.ReadLine();
-
-                                }
-                                stock[2] = stock[2] - amont;
-                                Console.WriteLine("great we will prepare that ");
-                            }
-                            else Console.WriteLine("out of stock");
-                            break;
-                        }
-                    case 4:
-                        {
-                            if (stock[3] > 0)
-                            {
-                                Console.WriteLine($"{products[3]} it's great product ");
-                                Console.WriteLine("enter the amont");
-                                string amonts = Console.ReadLine();
-                                int amont = 0;
-                                while (!int.TryParse(amonts, out amont) || amont >stock[3])
-                                {
-                                    Console.WriteLine("enter a valid num ");
-                                    amonts = Console.ReadLine();
-
-                                }
-                                stock[3] = stock[3] - amont;
-                                Console.WriteLine("great we will prepare that ");
-                            }
-                            else Console.WriteLine("out of stock");
-                            break;
-                        }
+                    }
+                    stock[index] = stock[index] - amont;
+                    Console.WriteLine("great we will prepare that ");
+                    decimal totalCost = amont * prices[index]; 
+                    Console.WriteLine($"Great! Total cost is: {totalCost} EGP");
+                    Console.WriteLine($"Remaining Stock: {stock[index]}");
                 }
+                else Console.WriteLine("out of stock");
+
 
                 break;
 
             }
-        case 4: flow = false;break;
+        case 4:
+            {
+                flow = false;
+                break;
+            }
 
     }
 
