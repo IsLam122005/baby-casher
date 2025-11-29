@@ -89,7 +89,7 @@ while (flow)
                 Console.WriteLine("What the num of product are you need?");
                 string need = Console.ReadLine();
                 int f = 0;
-                while (!int.TryParse(need, out f) || f < 1 || f >= 4)
+                while (!int.TryParse(need, out f) || f < 1 || f >5)
                 {
                     Console.WriteLine("enter a valid num ");
                     need = Console.ReadLine();
